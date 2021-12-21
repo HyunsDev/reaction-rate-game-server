@@ -10,6 +10,12 @@ router.get('/', function(req, res, next) {
   res.json({data: [...dataJson.recode.slice(-4)].reverse()})
 });
 
+router.get('/all', function(req, res, next) {
+  const dataBuffer = fs.readFileSync('./data/reaction-game.json')
+  const dataJson = JSON.parse(dataBuffer.toString())
+  res.json({data: [...dataJson.recode].reverse()})
+});
+
 router.post('/', function(req, res, next) {
   if (!req.body.name || !req.body.score) {
     res.status(400).json({message: "NEED_NAME_AND_SCORE"})
